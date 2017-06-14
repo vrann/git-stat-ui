@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>webpack 2 demo</title> 
+    </head>
+    <body ng-app="gitStatUI">
+        <div class="header" style="background-color:white; border-bottom:1px solid #CCC;">
+            <div class="row">
+            <img src="img/placeholder-resources-header.png">
+            <div class="main-menu">
+                <ul>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Download</a></li>
+                </ul>
+            </div>
+            
+            </div>
+            </div>
+        </div>
+        <br />
+        <div id="container" class="container">
+            <section id="reactive">
+                <div class="page-header">
+                    <h1>Statistic of the Public Pull Requests</h1>
+                    <p>Statistic is monitored on the daily basis.</p>
+                </div>
+                <div class="row" ng-controller="OMCcontroller">
+                    <input type="hidden" name="currentInterval" value="{{currentInterval}}" />
+                    <div class="col-lg-6 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Open/Merged/Closed PRs per {{currentInterval}}</div>
+                        <div class="panel-body">
+                        <canvas id="tables" class="chart chart-bar" chart-data="data" chart-options="options"
+                                chart-labels="labels" chart-series="series" chart-colors="colors"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Pull Request statistic.</div>
+                        <div class="panel-body">
+                        <table class="table table-responsive table-condensed table-striped">
+                            <tr>
+                                <th />
+                            <th ng-repeat="label in labels">{{label}}</th>
+                            </tr>
+                            <tr ng-repeat="dataSet in data">
+                                <td>
+                                    <span style="text-align: right;">{{series[$index]}}</span>
+                                </td>    
+                                <td ng-repeat="set in dataSet track by $index"><span style="text-align: right;">{{data[$parent.$index][$index]}}</span></td>
+                            </tr>
+                        </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="row" ng-controller="ContributorsController">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Top 3 Contributors per Month</div>
+                        <div class="panel-body">
+                            <canvas class="chart chart-bar" chart-data="dataContributors" chart-labels="labelsContributors"
+                                    chart-options="optionsContributors" chart-series="seriesContributors" chart="Contributors"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
